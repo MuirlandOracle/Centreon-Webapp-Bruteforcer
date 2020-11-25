@@ -96,8 +96,11 @@ class Exploit():
 		if not os.path.isfile(self.args.wordlist):
 			self.fail("Invalid Wordlist")
 
-		with open(self.args.wordlist, encoding="utf-8") as data:
-			self.words = [i.strip("\n") for i in data.readlines()]
+		try:
+			with open(self.args.wordlist, encoding="utf-8") as data:
+				self.words = [i.strip("\n") for i in data.readlines()]
+		except:
+			self.fail(f"Failed to open {self.args.wordlist}")
 
 		if not self.args.port:
 			if "https" in self.args.ssl:
